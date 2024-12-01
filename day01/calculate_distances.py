@@ -1,5 +1,5 @@
-input_file = "day01/input1.txt"
-sample_file = "day01/sample1.txt"
+input_file_part1 = "day01/input1.txt"
+sample_file_part1 = "day01/sample1.txt"
 
 def calculate_distances(data_file) -> int:
     result = 0
@@ -24,5 +24,5 @@ def calculate_distances(data_file) -> int:
 
 
 if __name__ == "__main__":
-    print(calculate_distances(sample_file))
-    print(calculate_distances(input_file))
+    print(calculate_distances(sample_file_part1))
+    print(calculate_distances(input_file_part1))
