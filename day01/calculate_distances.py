@@ -1,5 +1,5 @@
-input_file = "day01/input.txt"
-sample_file = "day01/sample.txt"
+input_file = "day01/input1.txt"
+sample_file = "day01/sample1.txt"
 
 def calculate_distances(data_file) -> int:
     result = 0
