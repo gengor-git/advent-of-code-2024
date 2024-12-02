@@ -27,7 +27,7 @@ def count_safe_reports_with_dampener(data_file) -> int:
 def is_safe_level(levels) -> bool:
     results = False
     if levels == sorted(levels) or levels == sorted(levels, reverse=True):
-        if all(1<=abs(int(levels[i]) - int(levels[i + 1])) <= 3 for i in range(len(levels) - 1)):
+        if all(1 <= abs(int(levels[i]) - int(levels[i + 1])) <= 3 for i in range(len(levels) - 1)):
             results = True
     return results
 
