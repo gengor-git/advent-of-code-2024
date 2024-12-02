@@ -3,18 +3,16 @@ sample_file = "day02/sample.txt"
 
 def count_safe_reports(data_file) -> int:
     result = 0
-    reports = open(data_file).read().strip().splitlines()
-    for line in reports:
-        levels = [int(level) for level in line.split()]
+    reports = [[int(s) for s in line.split()] for line in open(data_file).read().strip().splitlines()]
+    for levels in reports:
         if is_safe_level(levels):
             result+=1
     return result
 
 def count_safe_reports_with_dampener(data_file) -> int:
     result = 0
-    reports = open(data_file).read().strip().splitlines()
-    for line in reports:
-        levels = [int(level) for level in line.split()]
+    reports = [[int(s) for s in line.split()] for line in open(data_file).read().strip().splitlines()]
+    for levels in reports:
         if is_safe_level(levels):
             result += 1
         else:
