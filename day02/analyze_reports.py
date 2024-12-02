@@ -1,14 +1,11 @@
 input_file = "day02/input.txt"
 sample_file = "day02/sample.txt"
 
-
 def count_safe_reports(data_file) -> int:
     result = 0
     reports = open(data_file).read().strip().splitlines()
-    print(len(reports))
     for line in reports:
         levels = [int(level) for level in line.split()]
-        # check if all are increasing
         if is_safe_level(levels):
             result+=1
     return result
@@ -16,14 +13,11 @@ def count_safe_reports(data_file) -> int:
 def count_safe_reports_with_dampener(data_file) -> int:
     result = 0
     reports = open(data_file).read().strip().splitlines()
-    print(len(reports))
     for line in reports:
         levels = [int(level) for level in line.split()]
-        # check if all are increasing
         if is_safe_level(levels):
             result += 1
         else:
-            counter = 0
             for i in range(len(levels)):
                 copy = levels.copy()
                 del copy[i]
