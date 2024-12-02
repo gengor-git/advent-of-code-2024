@@ -40,7 +40,7 @@ def is_safe_level(levels) -> bool:
     return results
 
 if __name__ == "__main__":
-    # print(count_safe_reports(sample_file))
-    # print(count_safe_reports(input_file))
+    print(count_safe_reports(sample_file))
+    print(count_safe_reports(input_file))
     print(count_safe_reports_with_dampener(sample_file))
     print(count_safe_reports_with_dampener(input_file))
