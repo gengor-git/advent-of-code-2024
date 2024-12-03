@@ -13,5 +13,5 @@ class TestCorruptedMemory(unittest.TestCase):
         self.assertEqual(this_day.mult_corrputed_instr_memory(this_day.sample_file_instr), 48)
 
     def testInputPart2(self):
-        self.assertEqual(this_day.mult_corrputed_instr_memory(this_day.input_file), 3246517)
+        self.assertEqual(this_day.mult_corrputed_instr_memory(this_day.input_file), 83158140)
         

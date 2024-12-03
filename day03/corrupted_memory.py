@@ -20,6 +20,8 @@ def mult_corrputed_memory(data_file) -> int:
 def mult_corrputed_instr_memory(data_file) -> int:
     result = 0
     data = open(data_file).read()
+    # appended do is needed to as anchor for the remove regex
+    data = data + 'do()'
     data = re.sub(reg_remove, '', data)
     matches = re.findall(reg_pattern, data)
     for x, y in matches:
