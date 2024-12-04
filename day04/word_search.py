@@ -65,17 +65,61 @@ def count_xmas(data_file) -> int:
                         result+=1
     return result
 
-def calculate_something2(data_file) -> int:
+def count_x_mas(data_file) -> int:
     result = 0
-    data = [[int(s) for s in line.split()] for line in open(data_file).read().strip().splitlines()]
-    return result
-
-    for entry in data:
-        pass
+    data = open(data_file).read().strip().splitlines()
+    # search diagonaly
+    ''' starts with A in the middle
+        then scan diagonnaly in all directions
+        (x,y)
+        x-1, y-1 TL
+        x+1, y-1 TR
+        x+1, y+1 BR
+        x-1, y+1 BL
+    '''
+    max_y = len(data)-1
+    max_x = len(data[0])-1
+    for y in range(max_y+1):
+        for x in range(max_x+1):
+            t = False
+            b = False
+            r = False
+            l = False
+            if re.findall(r'A', data[y][x]):
+                # print('Found X: ({}, {}) = {}'.format(x, y, re.findall(r'X|S', data[y][x])))
+                if y-1>=0:
+                    # we can scan above
+                    t = True
+                if y+1<=max_y:
+                    # we can scan below
+                    b = True
+                if x-1>=0:
+                    # we can scan left
+                    l = True
+                if x+1<=max_x:
+                    # we can scan right
+                    r = True
+                if t and l and b and r:
+                    # x-1, y-1 TL
+                    # x+1, y-1 TR
+                    # x+1, y-1 BR
+                    # x-1, y+1 BL
+                    if (
+                        (
+                            data[y-1][x-1] == 'M' and data[y+1][x+1] == 'S'
+                            or data[y-1][x-1] == 'S' and data[y+1][x+1] == 'M'
+                        )
+                        and
+                        (
+                            data[y-1][x+1] == 'M' and data[y+1][x-1] == 'S'
+                            or data[y-1][x+1] == 'S' and data[y+1][x-1] == 'M'
+                        )
+                    ):
+                        result+=1
     return result
 
 if __name__ == "__main__":
-    print(count_xmas(sample_file))
-    print(count_xmas(input_file))
-    # print(calculate_something2(sample_file))
-    # print(calculate_something2(input_file))
+    # print(count_xmas(sample_file))
+    # print(count_xmas(input_file))
+    print(count_x_mas(sample_file))
+    print(count_x_mas(input_file))
