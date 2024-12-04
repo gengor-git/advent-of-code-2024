@@ -17,7 +17,7 @@ def count_xmas(data_file) -> int:
         result += len(re.findall(r'SAMX', line))
 
     # search diagonaly
-    ''' starts with X or S
+    ''' starts with X
         then scan diagonnaly in all directions
         (x,y)
         x-1, y-1 TL
@@ -56,7 +56,7 @@ def count_xmas(data_file) -> int:
                     if data[y-1][x+1] == 'M' and data[y-2][x+2] == 'A' and data[y-3][x+3] == 'S':
                         result+=1
                 if b and r:
-                    # x+1, y-1 BR
+                    # x+1, y+1 BR
                     if data[y+1][x+1] == 'M' and data[y+2][x+2] == 'A' and data[y+3][x+3] == 'S':
                         result+=1
                 if b and l:
@@ -102,7 +102,7 @@ def count_x_mas(data_file) -> int:
                 if t and l and b and r:
                     # x-1, y-1 TL
                     # x+1, y-1 TR
-                    # x+1, y-1 BR
+                    # x+1, y+1 BR
                     # x-1, y+1 BL
                     if (
                         (
@@ -119,7 +119,7 @@ def count_x_mas(data_file) -> int:
     return result
 
 if __name__ == "__main__":
-    # print(count_xmas(sample_file))
-    # print(count_xmas(input_file))
+    print(count_xmas(sample_file))
+    print(count_xmas(input_file))
     print(count_x_mas(sample_file))
     print(count_x_mas(input_file))
