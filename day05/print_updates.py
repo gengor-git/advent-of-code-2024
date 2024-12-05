@@ -52,38 +52,35 @@ def fix_and_sum_mid_page_updates(data_file) -> int:
     print(rules)
 
     for idx_u, update in enumerate(updates):
-        print('{:>4} : {}'.format(idx_u, update))
+        print('{:>4} :                       {}'.format(idx_u, update))
         fixed_it = False        
-        for idx_r, rule in enumerate(rules):
-            try:
-                current_page_idx = update.index(rule[0])
-                should_be_right_idx = update.index(rule[1])
 
-                if current_page_idx > should_be_right_idx:
-                    print('R:Should be \033[93m[{}][{}]\x1b[0m but was \033[0;35;40m{}\033[0m'.format(rule[0], rule[1], update))
-                    # switch places
-                    update.insert(should_be_right_idx, update.pop(current_page_idx))
-                    print('                         now \033[0;35;94m{}\x1b[0m'.format(update))
-                    fixed_it = True
-            except ValueError:
-                pass
-            try:
-                should_be_left_idx = update.index(rule[0])
-                current_page_idx = update.index(rule[1])
+        for idx_p, page in enumerate(update):
+            for idx_r, rule in enumerate(rules):
+                try:
+                    page_idx = update.index(rule[0])
+                    should_be_right_idx = update.index(rule[1])
+                    if page_idx > should_be_right_idx:
+                        print('R:Should be \033[93m[{}][{}]\x1b[0m but was \033[0;35;40m{}\033[0m'.format(rule[0], rule[1], update))
+                        # switch places
+                        update.insert(should_be_right_idx, update.pop(page_idx))
+                        print('                         now \033[0;35;94m{}\x1b[0m'.format(update))
+                        fixed_it = True
+                except ValueError:
+                    pass
 
-                if current_page_idx < should_be_left_idx:
-                    print('L:Should be \033[93m[{}][{}]\x1b[0m but was \033[0;35;40m{}\033[0m'.format(rule[0], rule[1], update))
-                    # switch places
-                    update.insert(should_be_left_idx+1, update.pop(current_page_idx))
-                    print('                         now \033[0;35;94m{}\x1b[0m'.format(update))
-                    fixed_it = True
-            except ValueError:
-                pass
-        print('-{:>3} : \033[3;40;41m{}\033[0m'.format(idx_u, update))
-
-        # for idx_p, page in enumerate(update):
-            # print('    \_ {:>4} : {}'.format(idx_p, page))
-
+                try:
+                    should_be_left_idx = update.index(rule[0])
+                    page_idx = update.index(rule[1])
+                    if page_idx < should_be_left_idx:
+                        print('L:Should be \033[93m[{}][{}]\x1b[0m but was \033[0;35;40m{}\033[0m'.format(rule[0], rule[1], update))
+                        # switch places
+                        update.insert(page_idx, update.pop(should_be_left_idx))
+                        print('                         now \033[0;35;94m{}\x1b[0m'.format(update))
+                        fixed_it = True
+                except ValueError:
+                    pass
+# 
         if fixed_it:
             result_index = int((len(update)-1)/2)
             print('               \x1b[6;30;42m[{}]\x1b[0m'.format(update[result_index]))
