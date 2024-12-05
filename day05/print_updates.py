@@ -43,59 +43,56 @@ def sum_mid_page_updates(data_file) -> int:
 
 def fix_and_sum_mid_page_updates(data_file) -> int:
     result = 0
-    # data = [[int(s) for s in line.split()] for line in open(data_file).read().strip().splitlines()]
     data = open(data_file).read().split('\n\n')
     rules = [[int(s) for s in line.split('|')] for line in data[0].splitlines()]
     updates = [[int(s) for s in line.split(',')] for line in data[1].splitlines()]
     print('# update blocks: {}'.format(len(updates)))
-    print(updates)
+    # print(updates)
     print('# rules: {}'.format(len(rules)))
     print(rules)
 
+    for idx_u, update in enumerate(updates):
+        print('{:>4} : {}'.format(idx_u, update))
+        fixed_it = False        
+        for idx_r, rule in enumerate(rules):
+            try:
+                current_page_idx = update.index(rule[0])
+                should_be_right_idx = update.index(rule[1])
 
-    for update in updates:
-        print('================================================\nUpdates block:   {}'.format(update))
-        max_index = len(update)-1
-        # current_page_index = 0
-        rule_was_broken = False
-        current_page_index = 0
-        while current_page_index < len(update):
-            print('Current     page [ {} ] [ {} ]'.format(current_page_index, update[current_page_index]))
-            # print("Applying rules")
-            for rule in rules:
-                if update[current_page_index] == rule[0]:
-                    # Scan if left of us ISN'T the other page number
-                    for i in range(current_page_index):
-                        if rule[1] == update[i]:
-                            print("RULEBREAK   page [ {} ] [ {} ] isn't BEFORE <- [ {} ]".format(current_page_index, update[current_page_index], rule[1]))
-                            rule_was_broken = True
-                            # Fix the order based on rules
-                            # move current page to this index i
-                            update.insert(i, update.pop(current_page_index))
-                            print('New updates block: {}'.format(update))
-                elif update[current_page_index] == rule[1]:
-                    # Scan if right of us ISN'T the other page number
-                    for i in range(current_page_index+1, len(update)):
-                        if rule[0] == update[i]:
-                            print("RULEBREAK   page [ {} ] [ {} ] isn't AFTER  -> [ {} ]".format(current_page_index, update[current_page_index], rule[0]))
-                            # Fix the order based on rules
-                            # move current page to this index i
-                            update.insert(i, update.pop(current_page_index))
-                            print('Fixed page order {}'.format(update))
-                            rule_was_broken = True
-            if not rule_was_broken:
-                current_page_index += 1
-            else:
-                current_page_index += 1
-        if rule_was_broken:
-            # we assume we fixed it above and only need to grab the mid termin value.
+                if current_page_idx > should_be_right_idx:
+                    print('R:Should be \033[93m[{}][{}]\x1b[0m but was \033[0;35;40m{}\033[0m'.format(rule[0], rule[1], update))
+                    # switch places
+                    update.insert(should_be_right_idx, update.pop(current_page_idx))
+                    print('                         now \033[0;35;94m{}\x1b[0m'.format(update))
+                    fixed_it = True
+            except ValueError:
+                pass
+            try:
+                should_be_left_idx = update.index(rule[0])
+                current_page_idx = update.index(rule[1])
+
+                if current_page_idx < should_be_left_idx:
+                    print('L:Should be \033[93m[{}][{}]\x1b[0m but was \033[0;35;40m{}\033[0m'.format(rule[0], rule[1], update))
+                    # switch places
+                    update.insert(should_be_left_idx+1, update.pop(current_page_idx))
+                    print('                         now \033[0;35;94m{}\x1b[0m'.format(update))
+                    fixed_it = True
+            except ValueError:
+                pass
+        print('-{:>3} : \033[3;40;41m{}\033[0m'.format(idx_u, update))
+
+        # for idx_p, page in enumerate(update):
+            # print('    \_ {:>4} : {}'.format(idx_p, page))
+
+        if fixed_it:
             result_index = int((len(update)-1)/2)
-            print('================================================\nInvalid Update mid: [{}]'.format(update[result_index]))
+            print('               \x1b[6;30;42m[{}]\x1b[0m'.format(update[result_index]))
             result += update[result_index]
+
     return result
 
 if __name__ == "__main__":
     # print(sum_mid_page_updates(sample_file))
     # print(sum_mid_page_updates(input_file))
-    # print(fix_and_sum_mid_page_updates(sample_file))
-    print(fix_and_sum_mid_page_updates(input_file))
+    print(fix_and_sum_mid_page_updates(sample_file))
+    # print(fix_and_sum_mid_page_updates(input_file))
