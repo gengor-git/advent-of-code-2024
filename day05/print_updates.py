@@ -92,4 +92,4 @@ if __name__ == "__main__":
     # print(sum_mid_page_updates(sample_file))
     # print(sum_mid_page_updates(input_file))
     print(fix_and_sum_mid_page_updates(sample_file))
-    # print(fix_and_sum_mid_page_updates(input_file))
+    print(fix_and_sum_mid_page_updates(input_file))
