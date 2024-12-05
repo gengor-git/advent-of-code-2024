@@ -23,7 +23,7 @@ def sum_mid_page_updates(data_file) -> int:
                     # Scan if left of us ISN'T the other page number
                     for i in range(block_index):
                         if rule[1] == updates_block[i]:
-                            print("RULEBREAK: This page must be BEFORE {} <- {}".format(page, rule[1]))
+                            print("RULEBREAK: page [ {} ] isn't BEFORE <- [ {} ]".format(page, rule[1]))
                             rule_broken = True
                             break
                 elif page == rule[1]:
@@ -31,13 +31,13 @@ def sum_mid_page_updates(data_file) -> int:
                     # Scan if right of us ISN'T the other page number
                     for i in range(block_index, len(updates_block)-1):
                         if rule[0] == updates_block[i]:
-                            # print("RULEBREAK: This page must be AFTER  {} -> {}".format(page, rule[0]))
+                            print("RULEBREAK: page [ {} ] isn't AFTER  -> [ {} ]".format(page, rule[0]))
                             rule_broken = True
                             break
             block_index+=1
         if not rule_broken:
             result_index = int((len(updates_block)-1)/2)
-            print('Valid Update mid: {}'.format(updates_block[result_index]))
+            print('Valid Update mid: [{}]'.format(updates_block[result_index]))
             result += updates_block[result_index]
         
 
@@ -51,7 +51,7 @@ def calculate_something2(data_file) -> int:
     return result
 
 if __name__ == "__main__":
-    # print(sum_mid_page_updates(sample_file))
+    print(sum_mid_page_updates(sample_file))
     print(sum_mid_page_updates(input_file))
     # print(calculate_something2(sample_file))
     # print(calculate_something2(input_file))
