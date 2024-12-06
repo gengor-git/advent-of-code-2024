@@ -2,7 +2,7 @@ input_file = "day06/input.txt"
 sample_file = "day06/sample.txt"
 
 
-def count_predicted_steps(data_file) -> int:
+def count_predicted_visits(data_file) -> int:
     room = open(data_file).read().strip().splitlines()
     
     movement = {'U': (0, -1),
@@ -15,10 +15,11 @@ def count_predicted_steps(data_file) -> int:
             'L': 'U'}
 
     steps = 0
+    visits = []
     current_position = (0, 0)
     next_position = (0, 0)
     current_direction = 'U'
-    max_steps = 2000 # for safety
+    max_steps = 40000 # for safety
     trys = 0
 
     # find ^
@@ -40,13 +41,16 @@ def count_predicted_steps(data_file) -> int:
         if look_ahead == '#':
             print("Blocker at {}".format(next_position))
             current_direction = next_direction[current_direction]
+            next_position = (current_position[0]+movement[current_direction][0], current_position[1]+movement[current_direction][1])
             print('Direction change: {}'.format(current_direction))
+            print('cur: {}, next: {}'.format(current_position, next_position))
         else:
             current_position = next_position
             next_position = (current_position[0]+movement[current_direction][0], current_position[1]+movement[current_direction][1])
             print('cur: {}, next: {}'.format(current_position, next_position))
             steps += 1
-    return steps
+            visits.append(current_position)
+    return len(list(dict.fromkeys(visits)))
 
 def calculate_something2(data_file) -> int:
     result = 0
@@ -56,7 +60,7 @@ def calculate_something2(data_file) -> int:
     return result
 
 if __name__ == "__main__":
-    print(count_predicted_steps(sample_file))
-    # print(count_predicted_steps(input_file))
+    # print(count_predicted_visits(sample_file))
+    print(count_predicted_visits(input_file))
     # print(calculate_something2(sample_file))
     # print(calculate_something2(input_file))
