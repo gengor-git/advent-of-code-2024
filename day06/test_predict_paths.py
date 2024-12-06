@@ -10,8 +10,8 @@ class TestSomethingSomething(unittest.TestCase):
         self.assertEqual(this_day.count_predicted_visits(this_day.input_file), 5067)
         
     def testSamplePart2(self):
-        self.assertEqual(this_day.calculate_something2(this_day.sample_file), 11)
+        self.assertEqual(this_day.count_loop_by_obstacle(this_day.sample_file), 6)
 
     def testInputPart2(self):
-        self.assertEqual(this_day.calculate_something2(this_day.input_file), 3246517)
+        self.assertEqual(this_day.count_loop_by_obstacle(this_day.input_file), 3246517)
         
