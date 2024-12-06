@@ -13,5 +13,5 @@ class TestSomethingSomething(unittest.TestCase):
         self.assertEqual(this_day.count_loop_by_obstacle(this_day.sample_file), 6)
 
     def testInputPart2(self):
-        self.assertEqual(this_day.count_loop_by_obstacle(this_day.input_file), 3246517)
+        self.assertEqual(this_day.count_loop_by_obstacle(this_day.input_file), 1793)
         
