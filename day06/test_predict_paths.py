@@ -1,7 +1,7 @@
 import unittest
 import day06.predict_paths as this_day
 
-class TestSomethingSomething(unittest.TestCase):
+class TestPredictPaths(unittest.TestCase):
 
     def testSamplePart1(self):
         self.assertEqual(this_day.count_predicted_visits(this_day.sample_file), 41)
