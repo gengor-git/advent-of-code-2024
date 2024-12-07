@@ -2,7 +2,7 @@ import os
 
 input_file = "day07/input.txt"
 sample_file = "day07/sample.txt"
-term_size = 15
+term_size = 35
 
 def sum_total_calibration_results(data_file) -> int:
     print('─' * term_size)
