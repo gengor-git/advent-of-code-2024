@@ -7,7 +7,7 @@ class TestAntennaResonance(unittest.TestCase):
         self.assertEqual(this_day.count_resonance_spots(this_day.sample_file), 14)
 
     def testInputPart1(self):
-        self.assertEqual(this_day.calculate_something(this_day.input_file), 3246517)
+        self.assertEqual(this_day.count_resonance_spots(this_day.input_file), 269)
         
     def testSamplePart2(self):
         self.assertEqual(this_day.calculate_something2(this_day.sample_file), 11)
