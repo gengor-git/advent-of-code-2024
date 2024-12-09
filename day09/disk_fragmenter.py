@@ -32,8 +32,8 @@ def defrag_and_checksum_part2(data_file) -> int:
         else:
             for i in range(block):
                 disk.append('.')
-    # print(disk)
-    defrag2(disk)
+    print(disk)
+    defrag2(diskmap)
     result = get_checksum(disk)
 
     return result
@@ -63,7 +63,7 @@ def defrag(disk: list) -> list:
     # print(disk)
     return disk
 
-def defrag2(disk: list) -> list:
+def defrag2(diskmap: list) -> list:
     """
     Takes the list an defrags it according to the rule. Start at the end and
     fill those blocks from the front.  
@@ -72,13 +72,19 @@ def defrag2(disk: list) -> list:
     Returns:
         list: defragmented list
     """
-    complete = False
-    spaces = []
 
-    print(find_consecutive_duplicates(disk))
+    files = []
+    free = []
 
+    for idx, value in enumerate(diskmap):
+        if (idx % 2) == 0:
+            files.append([int(idx/2), int(value)])
+        else:
+            free.append([int(idx/2), int(value)])
+    print(files[0])
+    print(free[0])
 
-    return disk
+    return diskmap
 
 def find_consecutive_duplicates(numbers):
     duplicates = []
