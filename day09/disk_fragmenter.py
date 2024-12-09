@@ -18,6 +18,23 @@ def defrag_and_checksum_part1(data_file) -> int:
     defrag(disk)
     result = get_checksum(disk)
 
+    return result
+
+def defrag_and_checksum_part2(data_file) -> int:
+    result = 0
+    diskmap = [int(s) for s in open(data_file).read().strip()]
+    disk = []
+
+    for idx, block in enumerate(diskmap):
+        if (idx % 2) == 0:
+            for i in range(block):
+                disk.append(str(int(idx/2)))
+        else:
+            for i in range(block):
+                disk.append('.')
+    # print(disk)
+    defrag2(disk)
+    result = get_checksum(disk)
 
     return result
 
@@ -46,6 +63,30 @@ def defrag(disk: list) -> list:
     # print(disk)
     return disk
 
+def defrag2(disk: list) -> list:
+    """
+    Takes the list an defrags it according to the rule. Start at the end and
+    fill those blocks from the front.  
+    Paramters:
+        disk (list): the current disk value
+    Returns:
+        list: defragmented list
+    """
+    complete = False
+    spaces = []
+
+    print(find_consecutive_duplicates(disk))
+
+
+    return disk
+
+def find_consecutive_duplicates(numbers):
+    duplicates = []
+    for i in range(len(numbers) - 1):
+        if numbers[i] == numbers[i + 1]:
+            duplicates.append(numbers[i])
+    return duplicates
+
 def get_checksum(disk) -> int:
     checksum = 0
     for idx, value in enumerate(disk):
@@ -63,5 +104,7 @@ def cprint(text: str):
     print(text)
 
 if __name__ == "__main__":
-    cprint('Part 1 sample: {}'.format(defrag_and_checksum_part1(sample_file)))
-    cprint('Part 1 input : {}'.format(defrag_and_checksum_part1(input_file)))
+    # cprint('Part 1 sample: {}'.format(defrag_and_checksum_part1(sample_file)))
+    # cprint('Part 1 input : {}'.format(defrag_and_checksum_part1(input_file)))
+    cprint('Part 2 sample: {}'.format(defrag_and_checksum_part2(sample_file)))
+    # cprint('Part 2 input : {}'.format(defrag_and_checksum_part2(input_file)))
